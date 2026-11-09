@@ -20,7 +20,7 @@ training ran on free Kaggle GPUs (2 × Tesla T4).
 The full write-up (methods, all experiments, figures, tables) is in
 [`Reports/CS781-CP-Sanskaar-Srivastava-220967-report.pdf`](Reports/CS781-CP-Sanskaar-Srivastava-220967-report.pdf).
 Its appendix also explains why each architecture, task layer and adaptation technique was chosen, with their
-advantages and drawbacks. The separate LLM-written analysis requested by the course is
+advantages and drawbacks. The separate analysis is
 [`Reports/analysis.pdf`](Reports/analysis.pdf).
 
 ## Repository layout
