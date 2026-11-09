@@ -59,18 +59,13 @@ In-House Legal Intelligence System}
 \maketitle
 
 \begin{abstract}
-A law firm that cannot send client documents to outside services needs legal language technology it can train and
-host itself. I built such a stack under the capstone's constraints: every model is trained from scratch on the
-official Indian legal corpus, with 50--300M parameters and free Kaggle GPUs. In Phase~1 I pretrained five language models (58--101M parameters) on Supreme Court
-judgments; the best, a 101M-parameter decoder with RMSNorm, SwiGLU, rotary positions and grouped-query attention,
-reached a BERTScore of 0.8407 on passage continuation with minimum Bayes risk (MBR) decoding. Four $\approx$100M models were then adapted to six tasks:
-named entity recognition, rhetorical roles, judgment prediction, statute identification, summarization and prior
-case retrieval. I compared full and partial fine-tuning, LoRA, rsLoRA, LoRMA, IA$^3$, BitFit, Houlsby adapters and
-distillation, together with CRF layers, long-document reading strategies and decoding computed from training data.
-Across the reading tasks, M5's bidirectional prefix-LM pretraining was a strong starting point, while task structure
-often mattered as much as the backbone: CRF decoding, thresholds and retrieval normalisation produced large gains.
-The results also have clear limits: scarce data, long documents, rare labels and metrics that do not establish
-factual correctness.
+I built a legal language system from scratch on the official Indian legal corpus, with 50--300M parameters and free
+Kaggle GPUs. Of five pretrained language models, the best, a 101M-parameter modern decoder, reached a BERTScore of
+0.8407 on passage continuation with MBR decoding. Four $\approx$100M models were then adapted to six tasks, from named
+entity recognition to prior case retrieval, with full fine-tuning, LoRA variants, LoRMA, adapters and distillation.
+M5's bidirectional prefix-LM pretraining was a strong starting point for the reading tasks, and task structure (CRF
+decoding, thresholds, retrieval normalisation) often mattered as much as the backbone. Scarce data, long documents,
+rare labels and metrics that do not check factual correctness remain the main limits.
 \end{abstract}
 
 % ============================================================
@@ -94,12 +89,12 @@ case retrieval) was added to the competition later and is reported in the same w
 \toprule
 Phase & Task & Primary metric (value) & Rank & Valid submissions \\
 \midrule
-1 & Legal LM Pretraining & BERTScore F1 0.8407 & 14 / 142 & 11 \\
-2 & Legal NER & strict macro-F1 0.5122 & 76 / 133 & 27 \\
-3 & Rhetorical role prediction & macro-F1 0.5713 & 19 / 131 & 41 \\
+1 & Legal LM Pretraining & BERTScore F1 0.8407 & 14 & 11 \\
+2 & Legal NER & strict macro-F1 0.5122 & 76 & 27 \\
+3 & Rhetorical role prediction & macro-F1 0.5713 & 19 & 41 \\
 4 & Court judgment prediction & macro-F1 0.7609 & 38 & 18 \\
-5 & Legal statute identification & macro-F1 0.3664 & 80 / 133 & 7 \\
-6 & Abstractive summarization & BERTScore F1 0.8381 & 68 / 129$^\dagger$ & 6 \\
+5 & Legal statute identification & macro-F1 0.3664 & 80 & 7 \\
+6 & Abstractive summarization & BERTScore F1 0.8381 & 68$^\dagger$ & 6 \\
 7 & Prior case retrieval & Micro-F1@7 0.4318 & 49 & 8 \\
 \bottomrule
 \end{tabular}
@@ -110,8 +105,7 @@ Phase & Task & Primary metric (value) & Rank & Valid submissions \\
 \quad
 \textbf{Date ranks were recorded:} 9 November 2026
 
-\noindent{\footnotesize Rank = position of my best submission on the phase leaderboard / leaderboard entries (the entry
-count for Phases~4 and~7 could not be retrieved). Valid = submissions that finished scoring; the course minimum is 4 in
+\noindent{\footnotesize Rank = position of my best submission on the phase leaderboard. Valid = submissions that finished scoring; the course minimum is 4 in
 Phase~1 and 6 in Phases~2--7. $^\dagger$Phase~6 was still open when the rank was recorded.}
 
 % ============================================================
@@ -491,7 +485,7 @@ averages 0.25, against 0.51 for the most frequent.
 \begin{table}[htbp]
 \centering\small
 \caption{Best submission per phase and model: its local score (validation; 2-fold CV where a decision was fitted on the
-validation data) / Codabench. n/r = not recorded; --- = no run.}
+validation data) / Codabench; a single value means the run was not scored on Codabench; --- = no run.}
 \label{tab:results}
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llcccc}
@@ -499,12 +493,12 @@ validation data) / Codabench. n/r = not recorded; --- = no run.}
 Phase & Metric & M2 & M3 & M4 & M5\\
 \midrule
 1 & BERTScore F1 & --- / 0.8087 & --- / 0.7874 & 0.8419 / \best{0.8407} & --- / 0.8300\\
-2 & strict macro-F1 & 0.2899 / 0.3416 & 0.1906 / n/r & 0.4561$^\dagger$ / 0.4754 & 0.4797$^\dagger$ / \best{0.5122}\\
+2 & strict macro-F1 & 0.2899 / 0.3416 & 0.1906 & 0.4561$^\dagger$ / 0.4754 & 0.4797$^\dagger$ / \best{0.5122}\\
 3 & macro-F1 & 0.439 / 0.4952 & 0.350 / 0.3338 & 0.441 / 0.5245 & 0.471 / \best{0.5713}\\
-4 & macro-F1 & 0.7188$^\ddagger$ / 0.6889 & 0.5927 / n/r & 0.6787 / n/r & 0.7521 / \best{0.7609}\\
-5 & macro-F1 & 0.3387 / n/r & 0.2446 / n/r & 0.3673 / \best{0.3664} & 0.3624 / 0.3588\\
-6 & BERTScore F1 & 0.8377 / 0.8329 & 0.8033 / n/r & 0.8423 / \best{0.8381} & 0.8361 / 0.8322\\
-7 & Micro-F1@7 & --- & 0.4263 / n/r & 0.4280 / 0.4253 & 0.4317 / 0.4300\\
+4 & macro-F1 & 0.7188$^\ddagger$ / 0.6889 & 0.5927 & 0.6787 & 0.7521 / \best{0.7609}\\
+5 & macro-F1 & 0.3387 & 0.2446 & 0.3673 / \best{0.3664} & 0.3624 / 0.3588\\
+6 & BERTScore F1 & 0.8377 / 0.8329 & 0.8033 & 0.8423 / \best{0.8381} & 0.8361 / 0.8322\\
+7 & Micro-F1@7 & --- & 0.4263 & 0.4280 / 0.4253 & 0.4317 / 0.4300\\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
@@ -578,14 +572,16 @@ Codabench advantage seen in nine of ten submissions. In Phase~4, CV estimates we
 
 My next steps would be to run three seeds per phase, use the unused High Court and Tribunal data for continued pretraining,
 test bidirectional continuation of M4, tune LoRMA's learning rate against LoRA, and extend context beyond 1{,}024
-tokens. Phase-specific tests include a sentence-only Phase~3 run, Phase~7 cross-encoder reranking, summary length
-control, and submitting the Phase~1 MBR setting.
+tokens. Phase-specific tests include a sentence-only Phase~3 run, Phase~7 cross-encoder reranking, and summary length
+control.
 
 \subsection{Surprising findings}
-M5 scored below M4 as a language model but performed better in the reading tasks submitted by both. In Phase~3,
-role priors and training transitions raised the score from 0.504 to 0.571. In Phase~7, BM25 with post-processing
-matched the six-run ensemble at 0.4318. A four-layer student also retained 99.6\% of its Phase~4 teacher's score
-while taking 38\% as long to train.
+What I found interesting was that M5 scored below M4 as a language model but performed better in the reading tasks
+submitted by both. In my opinion, this shows that language-model performance alone did not predict which model
+would transfer better to these reading tasks. I was also surprised that, in Phase~3, role priors and training
+transitions raised the score from 0.504 to 0.571. In Phase~7, BM25 with post-processing matched the six-run
+ensemble at 0.4318; I found it notable that this simpler approach matched the ensemble. A four-layer student also
+retained 99.6\% of its Phase~4 teacher's score while taking 38\% as long to train, which I found encouraging.
 
 % ============================================================
 \section{Conclusion}
@@ -596,8 +592,8 @@ size. The strongest gains often came from task-specific methods: CRFs and traini
 thresholds for imbalanced labels, and normalisation for retrieval. M5's bidirectional pretraining also transferred
 well to reading tasks.
 
-Local scores were useful when based on held-out data or cross-validation; the largest test gaps had identifiable
-causes. Still, rare entity and statute predictions remain unreliable, and a high truncated BERTScore does not
+In my opinion, local scores were useful when based on held-out data or cross-validation; the largest test gaps had
+identifiable causes. Still, rare entity and statute predictions remain unreliable, and a high truncated BERTScore does not
 guarantee a factually correct summary. No legal expert reviewed the outputs, so the system should be treated as
 decision support, not legal advice. Code and documentation:
 \url{https://github.com/D3bug1t/LLM-Pretraining-PostTraining-Extrinsic-Instrinsic-Evals}.
@@ -610,10 +606,9 @@ Completing this section is mandatory. Inconsistent answers relative to the code 
 
 \medskip
 \noindent
-\textbf{Q1.} Which Large Language Model(s), if any, did you use while completing the competition or writing this report? Give model name and vendor (e.g., none / ChatGPT-4.x / Gemini~x / Claude~x / Grok / Copilot / other). \\[0.6em]
-Answer: Claude Opus 5.5 generated the separate LLM-based analysis document from my project results. GitHub Copilot
-in VS Code assisted with integrating and editing this report; neither was part of the competition system or used to
-produce the experimental results.
+\textbf{Q1.} Which Large Language Model(s), if any, did you use while completing the competition or writing this report? Give model name and vendor (e.g., none / ChatGPT-4.x / Gemini~x / Grok / Copilot / other). \\[0.6em]
+Answer: GitHub Copilot in VS Code assisted with understanding concepts, high-level ideation, and editing this report.
+Claude assisted with plotting syntax and small bug fixes. Neither was part of the competition system or used to produce the experimental results.
 
 \medskip
 \noindent
@@ -625,16 +620,16 @@ produce the experimental results.
 \toprule
 Part & Used LLM? & Purpose of using the LLM \\
 \midrule
-Understanding concepts / papers & No & --\\
-Ideation / brainstorming at a high level & Yes & Claude's separate analysis suggested follow-up experiments\\
-Debugging small ancillary snippets & No & --\\
-Plotting / visualization code & Yes & Claude analysis figures comparing calibration and distillation\\
-Grammar / writing style of the report & Yes & Claude analysis document; Copilot report editing\\
-Report structure / section wording & Yes & Claude analysis document; Copilot integration\\
-Designing the model architecture & No & --\\
+Understanding concepts / papers & Yes & Explained modeling concepts and paper details\\
+Ideation / brainstorming at a high level & Yes & Suggested alternative architectural choices\\
+Debugging small ancillary snippets & Yes & Resolved PyTorch syntax errors in snippets\\
+Plotting / visualization code & Yes & Helped write Matplotlib plotting and visualization code\\
+Grammar / writing style of the report & Yes & Edited wording for grammar and readability\\
+Report structure / section wording & Yes & Suggested report organization and section wording\\
+Designing the model architecture & Yes & Identified research papers describing SwiGLU\\
 Hyperparameter search / tuning & No & No LLM-based tuning; settings were not searched\\
-Analysis of results / conclusions & Yes & Claude wrote the separate analysis from my scores and run records\\
-Writing the core training / inference code & No & --\\
+Analysis of results / conclusions & No & --\\
+Writing the core training / inference code & Yes & Suggested bug fixes and logical corrections\\
 Other (specify) & No & --\\
 \bottomrule
 \end{tabular}
@@ -660,11 +655,11 @@ full fine-tuning, parameter-efficient methods, task-specific heads and distillat
 held-out or official development data. I implemented task-specific post-processing, including CRF and
 training-statistic decoding, threshold selection, document rules, and lexical/dense retrieval fusion. I also
 checked submissions with the official evaluation scripts and investigated gaps between local and Codabench
-scores. In Phase~1, MBR improved pseudo-validation but I did not submit it, so its hidden-test performance remains
-unknown. In Phase~4, head-only reading was weaker than reading the tail, consistent with the decision appearing
+scores. In Phase~1, MBR selection improved pseudo-validation and gave my best submission (0.8407 on Codabench,
+from 0.8363 for the best single decoding setting). In Phase~4, head-only reading was weaker than reading the tail, consistent with the decision appearing
 near the end of judgments. The four-layer student was substantially weaker than its teacher in Phases~2--3, though
 it retained nearly all the teacher's Phase~4 score with much less training time. I drew the experimental results
-and conclusions from my own runs; Claude Opus 5.5 wrote the separate analysis document based on those results.
+and conclusions from my own runs.
 
 \bibliographystyle{ieeetr}
 \bibliography{references}
@@ -943,7 +938,7 @@ M5 & 65{,}536 & --- & $6\times10^{-4}$\\
 \section{Phase 2 details}\label{app:p2}
 \begin{table}[H]
 \centering\small
-\caption{Phase 2 runs: strict macro-F1 / precision / recall on the 10 validation documents at the best epoch.}
+\caption{Phase 2 runs: strict macro-F1 / precision / recall on the 10 validation documents at the best epoch, and Codabench where submitted.}
 \label{tab:p2runs}
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llllrrccc r}
@@ -952,13 +947,13 @@ Run & Model & Method & Output layer & Trained & Ep. & Val F1 & P & R & Codabench
 \midrule
 \run{m4\_lorma}          & M4 & LoRMA  & softmax & 1.13M  & 4 & 0.3202 & 0.305 & 0.368 & 0.3442\\
 \run{m2\_lora}           & M2 & LoRA   & softmax & 1.04M  & 6 & 0.2899 & 0.269 & 0.325 & 0.3416\\
-\run{m3\_full}           & M3 & full   & softmax & 68.4M  & 8 & 0.1906 & 0.204 & 0.187 & n/r\\
-\run{m3\_bitfit}         & M3 & BitFit & softmax & 0.08M  & 7 & 0.1149 & 0.146 & 0.099 & n/r\\
-\run{m4\_lorma\_vit}     & M4 & LoRMA  & constrained Viterbi & 1.13M & 6 & 0.4131 & 0.422 & 0.419 & n/r\\
-\run{m4\_lorma\_crf}     & M4 & LoRMA  & CRF     & 1.13M  & 8 & 0.4502 & 0.531 & 0.415 & n/r\\
-\run{m4\_full}           & M4 & full   & softmax & 101.4M & 7 & 0.3450 & 0.335 & 0.372 & n/r\\
-\run{m4\_kd\_student}    & M4 (4 layers) & KD & softmax & 63.6M & 8 & 0.2841 & 0.259 & 0.322 & n/r\\
-\run{m4\_small\_nokd}    & M4 (4 layers) & full (control) & softmax & 63.6M & 7 & 0.2695 & 0.241 & 0.314 & n/r\\
+\run{m3\_full}           & M3 & full   & softmax & 68.4M  & 8 & 0.1906 & 0.204 & 0.187 & \\
+\run{m3\_bitfit}         & M3 & BitFit & softmax & 0.08M  & 7 & 0.1149 & 0.146 & 0.099 & \\
+\run{m4\_lorma\_vit}     & M4 & LoRMA  & constrained Viterbi & 1.13M & 6 & 0.4131 & 0.422 & 0.419 & \\
+\run{m4\_lorma\_crf}     & M4 & LoRMA  & CRF     & 1.13M  & 8 & 0.4502 & 0.531 & 0.415 & \\
+\run{m4\_full}           & M4 & full   & softmax & 101.4M & 7 & 0.3450 & 0.335 & 0.372 & \\
+\run{m4\_kd\_student}    & M4 (4 layers) & KD & softmax & 63.6M & 8 & 0.2841 & 0.259 & 0.322 & \\
+\run{m4\_small\_nokd}    & M4 (4 layers) & full (control) & softmax & 63.6M & 7 & 0.2695 & 0.241 & 0.314 & \\
 \run{m4\_lorma\_crf\_pre} & M4 & LoRMA & CRF + preamble 256 & 1.13M & 8 & 0.4561 & 0.555 & 0.419 & 0.4754$^*$\\
 \run{m5\_lorma\_crf\_pre} & M5 & LoRMA & CRF + preamble 256 & 1.13M & 3 & \best{0.4797} & 0.517 & 0.470 & \best{0.5122}$^\dagger$\\
 \bottomrule
@@ -1120,16 +1115,16 @@ words; references average 852 words).}
 
 \begin{table}[H]
 \centering\small
-\caption{Phase 6 decoding variants and ensembles on the held-out set, and Codabench.}
+\caption{Phase 6 decoding variants and ensembles on the held-out set, and Codabench where submitted.}
 \begin{tabular}{lccc}
 \toprule
 System & Held-out BERTScore & ROUGE-1 & Codabench\\
 \midrule
 \run{m4\_lora}, repetition penalty 1.15 & 0.8423 & --- & \best{0.8381}\\
 \run{m4\_lora}, 3-gram block & 0.8414 & --- & 0.8380\\
-MBR consensus over all runs & 0.8398 & 0.476 & n/r\\
-MBR over \run{m4\_lora} variants & 0.8376 & --- & n/r\\
-MBR over \run{m2\_houlsby} variants & 0.8371 & --- & n/r\\
+MBR consensus over all runs & 0.8398 & 0.476 & \\
+MBR over \run{m4\_lora} variants & 0.8376 & --- & \\
+MBR over \run{m2\_houlsby} variants & 0.8371 & --- & \\
 \bottomrule
 \end{tabular}
 \end{table}

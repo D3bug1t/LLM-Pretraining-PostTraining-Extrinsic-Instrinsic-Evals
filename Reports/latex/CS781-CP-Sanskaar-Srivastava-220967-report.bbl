@@ -1,0 +1,117 @@
+\begin{thebibliography}{10}
+
+\bibitem{iltur}
+A.~Joshi, S.~Paul, A.~Sharma, P.~Goyal, S.~Ghosh, and A.~Modi, ``{IL-TUR}:
+  Benchmark for {I}ndian legal text understanding and reasoning,'' in {\em
+  Proceedings of the 62nd Annual Meeting of the Association for Computational
+  Linguistics}, 2024.
+
+\bibitem{lorma}
+H.~Bihany, S.~Patel, and A.~Modi, ``{LoRMA}: Low-rank multiplicative adaptation
+  for {LLMs},'' in {\em Findings of the Association for Computational
+  Linguistics: ACL 2025}, 2025.
+
+\bibitem{bpe}
+R.~Sennrich, B.~Haddow, and A.~Birch, ``Neural machine translation of rare
+  words with subword units,'' in {\em Proceedings of ACL}, 2016.
+
+\bibitem{radford2019gpt2}
+A.~Radford, J.~Wu, R.~Child, D.~Luan, D.~Amodei, and I.~Sutskever, ``Language
+  models are unsupervised multitask learners,'' {\em OpenAI Technical Report},
+  2019.
+
+\bibitem{rope}
+J.~Su, Y.~Lu, S.~Pan, A.~Murtadha, B.~Wen, and Y.~Liu, ``{RoFormer}: Enhanced
+  transformer with rotary position embedding,'' {\em arXiv preprint
+  arXiv:2104.09864}, 2021.
+
+\bibitem{gqa}
+J.~Ainslie, J.~Lee-Thorp, M.~de~Jong, Y.~Zemlyanskiy, F.~Lebr{\'o}n, and
+  S.~Sanghai, ``{GQA}: Training generalized multi-query transformer models from
+  multi-head checkpoints,'' in {\em Proceedings of EMNLP}, 2023.
+
+\bibitem{bahdanau}
+D.~Bahdanau, K.~Cho, and Y.~Bengio, ``Neural machine translation by jointly
+  learning to align and translate,'' in {\em Proceedings of ICLR}, 2015.
+
+\bibitem{rmsnorm}
+B.~Zhang and R.~Sennrich, ``Root mean square layer normalization,'' in {\em
+  Advances in Neural Information Processing Systems}, 2019.
+
+\bibitem{swiglu}
+N.~Shazeer, ``{GLU} variants improve transformer,'' {\em arXiv preprint
+  arXiv:2002.05202}, 2020.
+
+\bibitem{t5}
+C.~Raffel, N.~Shazeer, A.~Roberts, K.~Lee, S.~Narang, M.~Matena, Y.~Zhou,
+  W.~Li, and P.~J. Liu, ``Exploring the limits of transfer learning with a
+  unified text-to-text transformer,'' {\em Journal of Machine Learning
+  Research}, vol.~21, 2020.
+
+\bibitem{ctrl}
+N.~S. Keskar, B.~McCann, L.~R. Varshney, C.~Xiong, and R.~Socher, ``{CTRL}: A
+  conditional transformer language model for controllable generation,'' {\em
+  arXiv preprint arXiv:1909.05858}, 2019.
+
+\bibitem{nucleus}
+A.~Holtzman, J.~Buys, L.~Du, M.~Forbes, and Y.~Choi, ``The curious case of
+  neural text degeneration,'' in {\em Proceedings of ICLR}, 2020.
+
+\bibitem{contrastive}
+Y.~Su, T.~Lan, Y.~Wang, D.~Yogatama, L.~Kong, and N.~Collier, ``A contrastive
+  framework for neural text generation,'' in {\em Advances in Neural
+  Information Processing Systems}, 2022.
+
+\bibitem{mbr}
+S.~Kumar and W.~Byrne, ``Minimum {B}ayes-risk decoding for statistical machine
+  translation,'' in {\em Proceedings of HLT-NAACL}, 2004.
+
+\bibitem{lafferty}
+J.~Lafferty, A.~McCallum, and F.~Pereira, ``Conditional random fields:
+  Probabilistic models for segmenting and labeling sequence data,'' in {\em
+  Proceedings of ICML}, 2001.
+
+\bibitem{lample}
+G.~Lample, M.~Ballesteros, S.~Subramanian, K.~Kawakami, and C.~Dyer, ``Neural
+  architectures for named entity recognition,'' in {\em Proceedings of NAACL},
+  2016.
+
+\bibitem{inlegalner}
+P.~Kalamkar, A.~Agarwal, A.~Tiwari, S.~Gupta, S.~Karn, and V.~Raghavan, ``Named
+  entity recognition in {I}ndian court judgments,'' in {\em Proceedings of the
+  Natural Legal Language Processing Workshop}, 2022.
+
+\bibitem{menon}
+A.~K. Menon, S.~Jayasumana, A.~S. Rawat, H.~Jain, A.~Veit, and S.~Kumar,
+  ``Long-tail learning via logit adjustment,'' in {\em Proceedings of ICLR},
+  2021.
+
+\bibitem{hybrid}
+H.~Bourlard and N.~Morgan, {\em Connectionist Speech Recognition: A Hybrid
+  Approach}.
+\newblock Kluwer, 1994.
+
+\bibitem{dpr}
+V.~Karpukhin, B.~O{\u{g}}uz, S.~Min, P.~Lewis, L.~Wu, S.~Edunov, D.~Chen, and
+  W.-t. Yih, ``Dense passage retrieval for open-domain question answering,'' in
+  {\em Proceedings of EMNLP}, 2020.
+
+\bibitem{infonce}
+A.~van~den Oord, Y.~Li, and O.~Vinyals, ``Representation learning with
+  contrastive predictive coding,'' {\em arXiv preprint arXiv:1807.03748}, 2018.
+
+\bibitem{bm25}
+S.~Robertson and H.~Zaragoza, ``The probabilistic relevance framework: {BM25}
+  and beyond,'' {\em Foundations and Trends in Information Retrieval}, vol.~3,
+  no.~4, 2009.
+
+\bibitem{hf}
+T.~Wolf {\em et~al.}, ``Transformers: State-of-the-art natural language
+  processing,'' in {\em Proceedings of EMNLP: System Demonstrations}, 2020.
+
+\bibitem{pytorch}
+A.~Paszke {\em et~al.}, ``{PyTorch}: An imperative style, high-performance deep
+  learning library,'' in {\em Advances in Neural Information Processing
+  Systems}, 2019.
+
+\end{thebibliography}
