@@ -3,6 +3,7 @@
 \geometry{letterpaper}
 \usepackage{booktabs}
 \usepackage{hyperref}
+\usepackage{xurl}
 \usepackage{enumitem}
 \usepackage{float}
 \usepackage{caption}
@@ -476,7 +477,8 @@ Phase & Factor & Setting compared & Score\\
 % ============================================================
 \section{Results}
 % ============================================================
-Table~\ref{tab:results} compares local and Codabench scores; full run tables are in Appendices~\ref{app:p1}--\ref{app:p7}.
+Table~\ref{tab:results} compares local and Codabench scores per backbone, and Table~\ref{tab:top3} lists the three
+best Codabench submissions of each phase; full run tables are in Appendices~\ref{app:p1}--\ref{app:p7}.
 Figure~\ref{fig:curves} shows selected learning curves. Macro-F1 also hides large class differences: the best Phase~2
 F1 ranges from 0.11 (appellant) to 0.93 (date), and Phase~3 from 0.27 (\emph{None}) to 0.82 (\emph{Statute}).
 Phase~5 statute F1 ranges from 0.05 to 0.83 and rises with training frequency ($\rho=0.57$); the rarest quarter
@@ -504,6 +506,38 @@ Phase & Metric & M2 & M3 & M4 & M5\\
 \end{adjustbox}
 \\[1pt]{\footnotesize $^\dagger$before vote/propagate. $^\ddagger$fixed rule (no CV needed). Phase~7: BM25 with the same
 post-processing 0.4249 (CV) / \best{0.4318}; six-run ensemble 0.4245 / 0.4318 (both $p{=}0$).}
+\end{table}
+
+\begin{table}[htbp]
+\centering\scriptsize
+\caption{The three best Codabench submissions of each phase, with their local estimate (Phase~1 pseudo-validation,
+2 validation, 3 dev, 4, 5 and 7 two-fold CV, 6 held-out). pre.\ = 256-token preamble; vote/prop.\ = document
+rules; tail = last $8\times512$ tokens; both = head and tail readings; spread-4 = four $512$-token chunks spread over the
+case; norm.\ = cross-query normalisation; $p$ = query penalty.}
+\label{tab:top3}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}cl cc @{\hspace{10pt}} cl cc@{}}
+\toprule
+Ph. & Variant & Local & Codabench & Ph. & Variant & Local & Codabench\\
+\midrule
+1 & M4, MBR (BERTScore) & 0.8419 & \best{0.8407} & 5 & M4 full+LoRMA ens., per-statute & 0.3673 & \best{0.3664}\\
+1 & M4, MBR (ROUGE-L) & 0.8393 & 0.8379 & 5 & M5 ensemble, per-statute & 0.3624 & 0.3588\\
+1 & M4, greedy, 4-gram, rp 1.2 & 0.8372 & 0.8363 & 5 & M5 KD student, per-statute & 0.3502 & 0.3476\\
+\addlinespace
+2 & M5 LoRMA CRF + pre., vote/prop. & 0.4797$^\dagger$ & \best{0.5122} & 6 & M4 LoRA, rp 1.15 & 0.8423 & \best{0.8381}\\
+2 & M4 LoRMA CRF + pre., prop. & 0.4561$^\dagger$ & 0.4754 & 6 & M4 LoRA, 3-gram block & 0.8414 & 0.8380\\
+2 & M4 LoRMA CRF, vote/prop. & 0.4813 & 0.4715 & 6 & M2 Houlsby, greedy & 0.8377 & 0.8329\\
+\addlinespace
+3 & M5 CRF ens., prior + Viterbi & 0.471 & \best{0.5713} & 7 & BM25 + rules + norm., $p{=}0$ & 0.4249 & \best{0.4318}\\
+3 & M5 CRF ens., expected-F1 & 0.469 & 0.5657 & 7 & six-run ensemble, $p{=}0$ & 0.4245 & 0.4318\\
+3 & M5 ens., prior + Viterbi & 0.463 & 0.5620 & 7 & M5 LoRMA spread-4 + fusion & 0.4317 & 0.4300\\
+\addlinespace
+4 & M5 all-cases ens., tail & 0.7521 & \best{0.7609} & & & & \\
+4 & M5 all-cases ens., both & 0.7484 & 0.7523 & & & & \\
+4 & M5 rsLoRA all cases, tail & 0.7537 & 0.7374 & & & & \\
+\bottomrule
+\end{tabular}
+\\[2pt]{\footnotesize $^\dagger$validation score before the document rules.}
 \end{table}
 
 \noindent There was no single winning backbone across all seven tasks. M5 with a four-run CRF ensemble and
@@ -1190,7 +1224,6 @@ in-batch similarity distributions (teacher embeddings of the training cases are 
 The repository \url{https://github.com/D3bug1t/LLM-Pretraining-PostTraining-Extrinsic-Instrinsic-Evals} (and the
 \texttt{code/} folder of the submitted archive) contains the phase notebooks, post-processing scripts and official
 evaluation scripts, with a README per phase. The Phase~2--7 figures and appendix tables are generated from saved results by \texttt{make\_figures.py}
-and \texttt{data\_stats.py}. The separate course-required LLM analysis is
-\texttt{llm\_based\_results\_and\_data\_analysis.pdf}.
+and \texttt{data\_stats.py}.
 
 \end{document}
