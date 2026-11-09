@@ -1,0 +1,13 @@
+\begin{tabular}{llllll}
+\toprule
+Phase & Train & Dev & Test & Median length & Metric\\
+\midrule
+1 LM & 1.3\,GB SC text (of 19.2\,GB) & --- & 1{,}000 prompts & 512 / 128 words & BERTScore F1\\
+2 NER & 70 docs, 8{,}393 spans & 10 docs (held out) & 35 docs & 4{,}498 words & strict macro-F1\\
+3 RR & 80 docs, 16{,}845 sent. & 10 docs, 2{,}142 sent. & 10 docs, 2{,}197 sent. & 27 words/sent. & macro-F1\\
+4 CJPE & 31{,}677 cases & 994 cases$^\dagger$ & 1{,}517 cases & 2{,}030 words & macro-F1\\
+5 LSI & 42{,}750 docs & 10{,}181 docs & 13{,}019 docs & 430 words & macro-F1 (100)\\
+6 Summ. & 7{,}030 pairs & 200 held out & 100 docs & 3{,}146 $\to$ 641 & BERTScore F1\\
+7 PCR & 827 q / 4{,}320 c & 118 q / 1{,}023 c & 237 q / 1{,}727 c & 3{,}947 words & Micro-F1@7\\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,16 @@
+\begin{tabular}{lllrrrccc}
+\toprule
+Run & Method & Reads & Trained & Docs & Ep. & Dev F1 & Micro & Thr.\\
+\midrule
+\run{m4\_full} & full & head 4$\times$512 & 101.6M & 15k & 3 & 0.3535 & 0.481 & 0.18\\
+\run{m5\_full} & full & head 4$\times$512 & 101.6M & 15k & 3 & 0.3531 & 0.480 & 0.18\\
+\run{m5\_lorma\_head1\_alldocs} & lorma & head 1$\times$512 & 1.38M & 42k & 3 & 0.3490 & 0.470 & 0.16\\
+\run{m5\_kd\_student} & kd & head 4$\times$512 & 63.8M & 15k & 3 & 0.3460 & 0.466 & 0.14\\
+\run{m4\_lorma} & lorma & head 4$\times$512 & 1.38M & 15k & 3 & 0.3414 & 0.468 & 0.16\\
+\run{m5\_partial} & partial & head 4$\times$512 & 31.7M & 15k & 3 & 0.3364 & 0.466 & 0.16\\
+\run{m5\_lorma\_sqrtpw} & lorma & head 4$\times$512 & 1.38M & 15k & 3 & 0.3355 & 0.439 & 0.52\\
+\run{m5\_lorma} & lorma & head 4$\times$512 & 1.38M & 15k & 3 & 0.3292 & 0.459 & 0.16\\
+\run{m2\_lorma} & lorma & head 4$\times$512 & 1.22M & 15k & 3 & 0.3278 & 0.448 & 0.14\\
+\run{m3} & full & head 4$\times$512 & 69.0M & 15k & 3 & 0.2105 & 0.346 & 0.08\\
+\bottomrule
+\end{tabular}

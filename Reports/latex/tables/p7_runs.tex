@@ -1,0 +1,12 @@
+\begin{tabular}{lllrrcccr}
+\toprule
+Run & Method & Layers & Trained & Ep. & 0-shot & Dev F1@7 & R@100 & Min.\\
+\midrule
+\run{m5\_full} & full & 10/10 & 101.3M & 5 & 0.2424 & 0.3146 & 0.680 & 35\\
+\run{m4\_full} & full & 10/10 & 101.3M & 6 & 0.2457 & 0.3102 & 0.700 & 34\\
+\run{m5\_lorma} & lorma & 10/10 & 1.11M & 6 & 0.2424 & 0.3091 & 0.692 & 37\\
+\run{m5\_kd\_student} & kd & 4/10 & 63.6M & 5 & 0.2379 & 0.2913 & 0.690 & 14\\
+\run{m3\_full} & full & 2/2 & 68.3M & 4 & 0.1467 & 0.2724 & 0.660 & 16\\
+\run{m4\_ia3} & ia3 & 10/10 & 0.03M & 4 & 0.2457 & 0.2690 & 0.668 & 33\\
+\bottomrule
+\end{tabular}

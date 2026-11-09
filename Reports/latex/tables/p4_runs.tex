@@ -1,0 +1,25 @@
+\begin{tabular}{lllrrrcr}
+\toprule
+Run & Method & Reads & Trained & Cases & Ep. & Dev F1 & Min.\\
+\midrule
+\run{m5\_rslora\_alldocs} & rslora & tail 1$\times$512 & 1.28M & 31.7k & 3 & 0.7087 & 186\\
+\run{m5\_lora\_alldocs} & lora & tail 1$\times$512 & 1.28M & 31.7k & 3 & 0.6980 & 177\\
+\run{m5\_full\_alldocs} & full & tail 1$\times$512 & 101.5M & 31.7k & 3 & 0.6874 & 201\\
+\run{m2\_lorma} & lorma & tail 1$\times$512 & 1.14M & 10.0k & 3 & 0.6831 & 59\\
+\run{m5\_rslora} & rslora & tail 1$\times$512 & 1.28M & 10.0k & 3 & 0.6615 & 65\\
+\run{m2\_lora} & lora & tail 1$\times$512 & 1.22M & 10.0k & 2 & 0.6609 & 58\\
+\run{m5\_lorma\_hier4} & lorma & tail 4$\times$512 & 1.30M & 10.0k & 3 & 0.6566 & 192\\
+\run{m5\_full} & full & tail 1$\times$512 & 101.5M & 10.0k & 1 & 0.6528 & 69\\
+\run{m5\_lorma\_alldocs} & lorma & tail 1$\times$512 & 1.30M & 31.7k & 3 & 0.6519 & 175\\
+\run{m5\_kd\_student} & kd & tail 1$\times$512 & 63.8M & 10.0k & 2 & 0.6503 & 26\\
+\run{m4\_rslora} & rslora & tail 1$\times$512 & 1.28M & 10.0k & 1 & 0.6415 & 65\\
+\run{m5\_lora} & lora & tail 1$\times$512 & 1.28M & 10.0k & 3 & 0.6398 & 65\\
+\run{m4\_full} & full & tail 1$\times$512 & 101.5M & 10.0k & 2 & 0.6389 & 69\\
+\run{m2\_rslora} & rslora & tail 1$\times$512 & 1.22M & 10.0k & 3 & 0.6384 & 59\\
+\run{m4\_lorma} & lorma & tail 1$\times$512 & 1.30M & 10.0k & 1 & 0.6318 & 64\\
+\run{m5\_lorma} & lorma & tail 1$\times$512 & 1.30M & 10.0k & 3 & 0.6233 & 64\\
+\run{m4\_lora} & lora & tail 1$\times$512 & 1.28M & 10.0k & 1 & 0.6224 & 65\\
+\run{m3} & full & tail 1$\times$512 & 68.8M & 10.0k & 3 & 0.5901 & 11\\
+\run{m5\_lorma\_head} & lorma & head 1$\times$512 & 1.30M & 10.0k & 3 & 0.5602 & 58\\
+\bottomrule
+\end{tabular}

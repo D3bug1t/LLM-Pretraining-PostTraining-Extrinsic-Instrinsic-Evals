@@ -1,0 +1,138 @@
+{
+ "p1": {
+  "prompts": 1000,
+  "words_median": 512
+ },
+ "p2": {
+  "train_docs": 70,
+  "test_docs": 35,
+  "entities": 8393,
+  "labels": {
+   "APP": 407,
+   "RESP": 381,
+   "A.COUNSEL": 195,
+   "R.COUNSEL": 184,
+   "JUDGE": 245,
+   "WIT": 187,
+   "AUTH": 1003,
+   "COURT": 1013,
+   "STAT": 1260,
+   "PREC": 1183,
+   "DATE": 1575,
+   "CASENO": 760
+  },
+  "words_median": 4498.5
+ },
+ "p3": {
+  "splits": {
+   "CL_train": [
+    40,
+    10593
+   ],
+   "CL_dev": [
+    5,
+    1396
+   ],
+   "CL_test": [
+    5,
+    1339
+   ],
+   "IT_train": [
+    40,
+    6252
+   ],
+   "IT_dev": [
+    5,
+    746
+   ],
+   "IT_test": [
+    5,
+    858
+   ]
+  },
+  "sent_words_median": 27,
+  "roles": {
+   "CL": {
+    "Fact": 2979,
+    "ArgumentPetitioner": 976,
+    "ArgumentRespondent": 996,
+    "RatioOfTheDecision": 2856,
+    "RulingByPresentCourt": 113,
+    "RulingByLowerCourt": 438,
+    "None": 53,
+    "PrecedentNotReliedUpon": 209,
+    "PrecedentReliedUpon": 1305,
+    "Statute": 367,
+    "Issue": 17,
+    "Dissent": 284
+   },
+   "IT": {
+    "Fact": 1119,
+    "RulingByLowerCourt": 436,
+    "ArgumentPetitioner": 637,
+    "Issue": 90,
+    "Statute": 732,
+    "RatioOfTheDecision": 1445,
+    "RulingByPresentCourt": 194,
+    "PrecedentReliedUpon": 640,
+    "ArgumentRespondent": 352,
+    "PrecedentNotReliedUpon": 360,
+    "None": 244,
+    "PrecedentOverruled": 3
+   }
+  }
+ },
+ "p4": {
+  "train_rows": 37387,
+  "train_unique": 31677,
+  "train_pos": 0.4143384790226347,
+  "dev_rows": 3505,
+  "dev_in_test": 1517,
+  "dev_only": 994,
+  "dev_pos": 0.5,
+  "test": 1517,
+  "words_median": 2030,
+  "words_p90": 6431
+ },
+ "p5": {
+  "train": 42750,
+  "dev": 10181,
+  "test": 13019,
+  "statutes": 100,
+  "labels_per_doc": 3.7052163742690056,
+  "rarest": 272,
+  "most": 11731,
+  "words_median": 430,
+  "words_p90": 2766
+ },
+ "p6": {
+  "train": 7030,
+  "test": 100,
+  "doc_words_median": 3146,
+  "doc_words_p90": 7901,
+  "sum_words_median": 641,
+  "compression_median": 4.61780303030303,
+  "bigram_overlap_median": 0.7889360296291144,
+  "test_doc_words_median": 3180
+ },
+ "p7": {
+  "train": {
+   "queries": 827,
+   "pool": 4320,
+   "rel_mean": 6.418379685610641,
+   "words_median": 3632
+  },
+  "dev": {
+   "queries": 118,
+   "pool": 1023,
+   "rel_mean": 8.245762711864407,
+   "words_median": 4036
+  },
+  "test": {
+   "queries": 237,
+   "pool": 1727,
+   "rel_mean": null,
+   "words_median": 3947
+  }
+ }
+}
